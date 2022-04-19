@@ -2,10 +2,10 @@ package entity;
 
 import java.util.List;
 
-public class Section {
+public class SectionEntity {
     private Long id;
     private String name;
     private String description;
-    private User user;
+    private UserEntity user;
     private List<ProductEntity> products;
 }

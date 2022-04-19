@@ -9,7 +9,7 @@ public abstract class ProductEntity {
     protected int quantity;
     protected double price;
     protected String description;
-    protected Supplier supplier;
+    protected SupplierEntity supplier;
 
     public ProductEntity() {
     }
@@ -55,11 +55,11 @@ public abstract class ProductEntity {
         this.description = description;
     }
 
-    public Supplier getSupplier() {
+    public SupplierEntity getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Supplier supplier) {
+    public void setSupplier(SupplierEntity supplier) {
         this.supplier = supplier;
     }
 

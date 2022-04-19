@@ -3,9 +3,7 @@ package entity;
 import enumeration.Month;
 import enumeration.WeekDays;
 
-public class Supplier {
-    private Long id;
-    private String name;
+public class SupplierEntity extends PersonEntity {
     private String address;
     private String phone;
     private String field;
