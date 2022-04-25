@@ -1,5 +1,10 @@
 package entity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import service.implement.ProductServiceImp;
+
+import java.util.List;
 import java.util.Objects;
 
 public abstract class ProductEntity {
@@ -10,8 +15,12 @@ public abstract class ProductEntity {
     protected double price;
     protected String description;
     protected SupplierEntity supplier;
+    static final Logger LOGGER = LogManager.getLogger(ProductEntity.class);
 
     public ProductEntity() {
+    }
+    public void printProducts(ProductEntity product){
+        LOGGER.info(product.toString());
     }
     public ProductEntity(int quantity) {
         this.quantity = quantity;
