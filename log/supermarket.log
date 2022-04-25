@@ -1,0 +1,11 @@
+2022-04-24 22:19:18,624 INFO s.i.ProductServiceImp [main] Program started.... 
+2022-04-24 22:19:18,630 ERROR s.i.ProductServiceImp [main] ERROR
+2022-04-24 22:19:18,631 WARN s.i.ProductServiceImp [main] WARNING
+2022-04-24 22:19:18,631 FATAL s.i.ProductServiceImp [main] FATAL
+2022-04-24 22:19:18,631 DEBUG s.i.ProductServiceImp [main] DEBUG
+2022-04-24 22:19:18,631 INFO s.i.ProductServiceImp [main] INFO
+2022-04-24 22:19:18,678 INFO e.ProductEntity [main] ProductEntity{id=1, quantity=0, price=1.5, description='Rice', supplier=null}
+2022-04-24 22:19:18,679 INFO e.ProductEntity [main] ProductEntity{id=2, quantity=0, price=1.05, description='Spaghetti', supplier=null}
+2022-04-24 22:19:18,681 INFO Main [main] Reflexion info:class java.time.LocalDateTime
+2022-04-24 22:19:18,683 INFO Main [main] Reflexion info:equals
+2022-04-24 22:19:18,683 INFO Main [main] Reflexion info:hashCode
