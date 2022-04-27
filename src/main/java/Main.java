@@ -15,7 +15,10 @@ public class Main {
   static final Logger LOGGER = LogManager.getLogger(Main.class);
 
   public static void main(String[] args) throws Exception {
-    readFile();
+    //Name of the file to be read
+    String fileName = "src/main/resources/Article";
+    //Call the function to count words the information will be written in wordsNumber.text
+    countWords(fileName);
 
 
     ArrayList<ProductEntity> entities = new ArrayList<>();
@@ -47,30 +50,30 @@ public class Main {
     Arrays.stream(methods).forEach(m -> LOGGER.info("Reflexion info:" + m.getName()));
   }
 
-  public static void readFile() {
+  public static void countWords(String fileName) {
+    TreeMap<String, Integer> mapWords = new TreeMap<>();
+    readFile(fileName, mapWords);
+    writeFile(fileName,mapWords);
 
-    //Name of the file to be read
-    String fileName = "src/main/resources/Article";
+
+  }
+  public static void readFile(String fileName,TreeMap<String, Integer> mapWords) {
     try {
       //Create object of FileReader
       FileReader inputFile = new FileReader(fileName);
-
       //Instantiate the BufferedReader Class
       BufferedReader bufferReader = new BufferedReader(inputFile);
-
       //Variable to hold the one line data
       String line;
 
       // Read file line by line and add to array
-      ArrayList<String> listWords = new ArrayList<>();
-      TreeMap<String, Integer> mapWords = new TreeMap<>();
+
       while ((line = bufferReader.readLine()) != null) {
         String[] words = line.split("\\W+");
         for (String w : words
         ) {
           if (!mapWords.containsKey(w)) {
             mapWords.put(w, 1);
-
           } else {
             Integer value = mapWords.get(w);
             value++;
@@ -80,20 +83,25 @@ public class Main {
       }
       //Close the buffer reader
       bufferReader.close();
-      //Create a file with for the answers
-      File file = new File("src/main/resources/wordsNumber.txt");
-      //Create object of FileWriter
-      FileWriter fw = new FileWriter("wordsNumber.txt");
 
-      //Order
-      Map<String, Integer> sortedMap = sortWordsByValue(mapWords);
-      //Write in the file
-      fw.write(String.valueOf(sortedMap.entrySet()));
-      fw.close();
     } catch (Exception e) {
       System.out.println("Error while reading file line by line:" + e.getMessage());
     }
-
+  }
+  public static void writeFile(String fileName,TreeMap<String, Integer> mapWords) {
+    try {
+    //Create a file with for the answers
+    File file = new File("src/main/resources/wordsNumber.txt");
+    //Create object of FileWriter
+    FileWriter fw = new FileWriter("wordsNumber.txt");
+    //Order
+    Map<String, Integer> sortedMap = sortWordsByValue(mapWords);
+    //Write in the file
+    fw.write(String.valueOf(sortedMap.entrySet()));
+    fw.close();
+    } catch (Exception e) {
+      System.out.println("Error while writing the file :" + e.getMessage());
+    }
   }
 
   public static Map<String, Integer> sortWordsByValue(final Map<String, Integer> mapWords) {
@@ -103,7 +111,6 @@ public class Main {
             .sorted((e2, e1) -> Integer.compare(e2.getValue(), e1.getValue()))
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e2, e1) -> e1, LinkedHashMap::new));
-
   }
 
   /**
