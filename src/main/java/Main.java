@@ -15,6 +15,13 @@ public class Main {
   static final Logger LOGGER = LogManager.getLogger(Main.class);
 
   public static void main(String[] args) throws Exception {
+
+    //Using multithreading
+    HelloWorldApp hwapp = new HelloWorldApp();
+    hwapp.start();
+    hwapp.run(args);
+
+
     //Name of the file to be read
     String fileName = "src/main/resources/Article";
     //Call the function to count words the information will be written in wordsNumber.text
@@ -111,16 +118,18 @@ public class Main {
             .sorted((e2, e1) -> Integer.compare(e2.getValue(), e1.getValue()))
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e2, e1) -> e1, LinkedHashMap::new));
-  }
 
-  /**
-   * The HelloWorldApp class implements an application that
-   * simply prints "Hello World!" to standard output.
-   */
-//  class HelloWorldApp {
-//    public static void main(String[] args) {
-//      System.out.println("Hello World! " + args[0] + " " + args[1] + "!"); // print the arguments string.
-//    }
-//  }
+}
+
+
+    /**
+     * The HelloWorldApp class implements an application that
+     * simply prints "Hello World!" to standard output.
+     */
+  public static class HelloWorldApp extends Thread{
+    public void run(String[] args) {
+      System.out.println("Hello World! " + args[0] + " " + args[1] + "!"); // print the arguments string.
+    }
+  }
 }
 

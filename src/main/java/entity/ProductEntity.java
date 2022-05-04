@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class ProductEntity {
-
-
     protected Long id;
     protected int quantity;
     protected double price;
