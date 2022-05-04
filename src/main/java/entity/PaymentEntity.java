@@ -3,6 +3,7 @@ package entity;
 import service.IPayable;
 
 public abstract class PaymentEntity implements IPayable {
+    protected String id;
     protected ClientEntity client;
     protected double  amount;
 
