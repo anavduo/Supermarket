@@ -15,10 +15,12 @@ public class Main {
   static final Logger LOGGER = LogManager.getLogger(Main.class);
 
   public static void main(String[] args) throws Exception {
+
     //Using multithreading
     HelloWorldApp hwapp = new HelloWorldApp();
     hwapp.start();
     hwapp.run(args);
+
 
     //Name of the file to be read
     String fileName = "src/main/resources/Article";
@@ -116,8 +118,8 @@ public class Main {
             .sorted((e2, e1) -> Integer.compare(e2.getValue(), e1.getValue()))
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e2, e1) -> e1, LinkedHashMap::new));
-}
 
+}
 
 
     /**
