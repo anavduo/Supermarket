@@ -1,10 +1,20 @@
+import entity.EmployeeEntity;
 import entity.FoodProductEntity;
 import entity.ProductEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import service.implement.ProductServiceImp;
 
-import java.io.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -15,6 +25,50 @@ public class Main {
   static final Logger LOGGER = LogManager.getLogger(Main.class);
 
   public static void main(String[] args) throws Exception {
+    //Dom parsing xml
+
+        //Get Document Builder
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        // Load the input XML document, parse it and return an instance of the
+        // Document class.
+        Document document = builder.parse(new File("Employees.xml"));
+
+        List<EmployeeEntity> employees = new ArrayList<>();
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+          Node node = nodeList.item(i);
+
+          if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element elem = (Element) node;
+
+            // Get the value of the ID attribute.
+            String ID = node.getAttributes().getNamedItem("ID").getNodeValue();
+
+            // Get the value of all sub-elements.
+            String firstname = elem.getElementsByTagName("Firstname")
+                    .item(0).getChildNodes().item(0).getNodeValue();
+
+            String lastname = elem.getElementsByTagName("Lastname").item(0)
+                    .getChildNodes().item(0).getNodeValue();
+
+            Integer age = Integer.parseInt(elem.getElementsByTagName("Age")
+                    .item(0).getChildNodes().item(0).getNodeValue());
+
+            Double salary = Double.parseDouble(elem.getElementsByTagName("Salary")
+                    .item(0).getChildNodes().item(0).getNodeValue());
+
+            employees.add(new EmployeeEntity(ID, firstname, lastname, age, salary));
+          }
+        }
+
+        // Using logger and lambda to print all employees.
+           employees.forEach(e -> LOGGER.info("Info employee Firstname: "
+                   + e.getFirstname()+ ", Lastname: " + e.getLastname()+
+                   ", Age: "+ e.getAge()+", Salary: " + e.getSalary()));
+
+
     //Using multithreading
     HelloWorldApp hwapp = new HelloWorldApp();
     hwapp.start();
@@ -59,8 +113,6 @@ public class Main {
     TreeMap<String, Integer> mapWords = new TreeMap<>();
     readFile(fileName, mapWords);
     writeFile(fileName,mapWords);
-
-
   }
   public static void readFile(String fileName,TreeMap<String, Integer> mapWords) {
     try {
